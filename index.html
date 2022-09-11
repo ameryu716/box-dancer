@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <link rel="icon" href="./open.svg">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">    
+    <link rel="stylesheet" href="style.css">
+    <title>開きます</title>
+</head>
+
+<body>
+    <header>
+        <button type="button" id="setting">
+            <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+                <path fill="#fff" d="m19.4 44-1-6.3q-.95-.35-2-.95t-1.85-1.25l-5.9 2.7L4 30l5.4-3.95q-.1-.45-.125-1.025Q9.25 24.45 9.25 24q0-.45.025-1.025T9.4 21.95L4 18l4.65-8.2 5.9 2.7q.8-.65 1.85-1.25t2-.9l1-6.35h9.2l1 6.3q.95.35 2.025.925Q32.7 11.8 33.45 12.5l5.9-2.7L44 18l-5.4 3.85q.1.5.125 1.075.025.575.025 1.075t-.025 1.05q-.025.55-.125 1.05L44 30l-4.65 8.2-5.9-2.7q-.8.65-1.825 1.275-1.025.625-2.025.925l-1 6.3ZM24 30.5q2.7 0 4.6-1.9 1.9-1.9 1.9-4.6 0-2.7-1.9-4.6-1.9-1.9-4.6-1.9-2.7 0-4.6 1.9-1.9 1.9-1.9 4.6 0 2.7 1.9 4.6 1.9 1.9 4.6 1.9Zm0-3q-1.45 0-2.475-1.025Q20.5 25.45 20.5 24q0-1.45 1.025-2.475Q22.55 20.5 24 20.5q1.45 0 2.475 1.025Q27.5 22.55 27.5 24q0 1.45-1.025 2.475Q25.45 27.5 24 27.5Zm0-3.5Zm-2.2 17h4.4l.7-5.6q1.65-.4 3.125-1.25T32.7 32.1l5.3 2.3 2-3.6-4.7-3.45q.2-.85.325-1.675.125-.825.125-1.675 0-.85-.1-1.675-.1-.825-.35-1.675L40 17.2l-2-3.6-5.3 2.3q-1.15-1.3-2.6-2.175-1.45-.875-3.2-1.125L26.2 7h-4.4l-.7 5.6q-1.7.35-3.175 1.2-1.475.85-2.625 2.1L10 13.6l-2 3.6 4.7 3.45q-.2.85-.325 1.675-.125.825-.125 1.675 0 .85.125 1.675.125.825.325 1.675L8 30.8l2 3.6 5.3-2.3q1.2 1.2 2.675 2.05Q19.45 35 21.1 35.4Z"/></svg>
+        </button>
+    </header>
+    <div id="circler">
+        <div class="dials">
+            <span id="dial-1">1</span>
+            <span id="dial-2">2</span>
+            <span id="dial-3">3</span>
+            <span id="dial-4">4</span>
+            <span id="dial-5">5</span>
+            <span id="dial-6">6</span>
+            <span id="dial-7">7</span>
+            <span id="dial-8">8</span>
+            <span id="dial-9">9</span>
+            <span id="dial-10">10</span>
+            <span id="dial-11">11</span>
+            <span id="dial-12">12</span>
+        </div>
+        <div class="rotates-base">
+            <div class="rotate-dial" id="rotate-dial-1">
+                <button>Sun</button>
+            </div>
+            <div class="rotate-dial" id="rotate-dial-2">
+                <button>Moon</button>
+            </div>
+        </div>
+        <div class="rotates-minute"></div>
+        <div class="rotates-hour"></div>
+    </div>
+    <main id="main">
+        
+        <div id="index">
+            <div class="box append-box">
+                <span>追加</span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M13 14h2v-3h3V9h-3V6h-2v3h-3v2h3Zm-5 4q-.825 0-1.412-.587Q6 16.825 6 16V4q0-.825.588-1.413Q7.175 2 8 2h12q.825 0 1.413.587Q22 3.175 22 4v12q0 .825-.587 1.413Q20.825 18 20 18Zm0-2h12V4H8v12Zm-4 6q-.825 0-1.412-.587Q2 20.825 2 20V6h2v14h14v2ZM8 4v12V4Z"/></svg>                
+            </div>
+        </div>
+        
+    </main>
+    <aside id="setting-area">
+        <h2>設定</h2>
+        <div class="json-import">
+            <label for="json-import-text">JSON インポート</label>
+            <textarea id="json-import-text"></textarea>
+            <button type="button" id="json-import">確定</button>
+        </div>
+        <hr>
+        <div class="json-export">
+            <button type="button" id="json-export">JSON エクスポート</button>
+        </div>
+    </aside>
+    <div id="regist-dialog">
+        <h2>ボックス登録</h2>
+        <button type="button" id="close">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path fill="#fff" d="M6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5l5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6Z"/></svg>
+        </button>
+        <div class="name">
+            <label for="name">名称</label>
+            <input type="text" id="name">
+        </div>
+        <div class="link">
+            <label for="link">URL</label>
+            <input type="text" id="link">
+        </div>
+        <div class="key">
+            <label for="key">キー</label>
+            <input type="text" id="key">
+        </div>
+        <div class="enter">
+            <button type="button" id="regist">登録</button>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
