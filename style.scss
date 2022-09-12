@@ -316,7 +316,7 @@ main {
 }
 
 // Aside
-aside {
+aside {position: relative;
     display: none;
     // opacity: 0;
     transform: translateX(400px);
@@ -327,6 +327,9 @@ aside {
     border-left: solid 3px #a0ffd3;
     padding: 1rem;
     flex-direction: column;
+    &.show {
+        display: flex;
+    }
     &.visible {
         transform: translateX(0);
     }
@@ -334,6 +337,7 @@ aside {
         color: #fff;
     }
     .json-import {
+        border-bottom: solid 2px #999;
         label {
             color: #fff;
         }
@@ -346,13 +350,21 @@ aside {
         }
     }
     .json-export {
+        border-bottom: solid 2px #999;
         padding: 1rem 0;
         button {
             background-color: #187070;
             color: #fff;
         }
     }
-    
+    .setting-delete {
+        margin-top: auto;
+        padding: 1rem 0;
+        button {
+            background-color: #d63a47;
+            color: #fff;
+        }
+    }
 }
 
 #regist-dialog {

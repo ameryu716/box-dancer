@@ -134,9 +134,15 @@ function closeRegistDialog() {
 }
 
 function registBox() {
+    
     const name = document.getElementById("name");
     const link = document.getElementById("link");
     const key = document.getElementById("key");
+
+    if(json_data.some(j => j.key === key.value)){
+        alert('キーの重複があります。\nこのキーは登録できません。');
+        return;
+    }
     json_data.push({
         name: name.value,
         link: link.value,
@@ -411,6 +417,12 @@ function jsonExport(){
     }
 }
 
+function jsonDelete(){
+    if(!confirm('ページ上の全てのデータを削除します。本当によろしいですか？')) return;
+    localStorage.removeItem('box-dancer-2022');
+    location.reload();
+}
+
 /////////-------------------------------- 設定 --------------------------------///////////
 
 
@@ -450,7 +462,10 @@ window.addEventListener("load", () => {
         jsonExport();
     })
 
-
+    const json_delete = document.getElementById('setting-delete');
+    json_delete.addEventListener('click',()=>{
+        jsonDelete();
+    })
 
 
 
