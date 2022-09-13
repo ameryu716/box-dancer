@@ -1,0 +1,39 @@
+[
+    {
+        "name": "AAAAAA",
+        "link": "",
+        "key": "aaa",
+        "childs": []
+    },
+    {
+        "name": "Google",
+        "link": "",
+        "key": "google",
+        "childs": []
+    },
+    {
+        "name": "Box",
+        "link": "",
+        "key": "boxx",
+        "childs": [
+            {
+                "name": "Child1",
+                "link": "child1",
+                "key": "child1",
+                "childs": []   
+            },
+            {
+                "name": "Child2",
+                "link": "child2",
+                "key": "child2",
+                "childs": []   
+            }
+        ]
+    },
+    {
+        "name": "Aswwwee",
+        "link": "",
+        "key": "awfef",
+        "childs": []
+    }
+]

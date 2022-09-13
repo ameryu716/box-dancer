@@ -316,7 +316,8 @@ main {
 }
 
 // Aside
-aside {position: relative;
+aside {
+    position: relative;
     display: none;
     // opacity: 0;
     transform: translateX(400px);
@@ -338,6 +339,7 @@ aside {position: relative;
     }
     .json-import {
         border-bottom: solid 2px #999;
+        padding-bottom: 1rem;
         label {
             color: #fff;
         }
@@ -420,6 +422,43 @@ aside {position: relative;
             background-color: transparent;
             color: $blue;
             font-weight: bold;
+        }
+    }
+}
+
+#loader {
+    display: none;
+    opacity: 0;
+    transition: 0.3s;
+    &.loading {
+        display: flex;
+    }
+    &.visible {
+        opacity: 1;
+    }
+    position: fixed;
+    z-index: 1;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        width: 300px;
+        text-align: center;
+    }
+    .ball {
+        position: absolute;
+        top: calc(50% - 100px);
+        left: calc(50% - 100px);
+        z-index: -1;
+        img {
+            width: 200px;
+            opacity: 0.8;
         }
     }
 }

@@ -478,6 +478,15 @@ window.addEventListener("load", () => {
     const hour_needle = document.getElementsByClassName('rotates-hour')[0];
     const needle_animate_hour = hour_needle.animate(rotateSteps,rotateTimingHour);
     applyWatch(needle_animate_minute,needle_animate_hour);
+
+    setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.remove('visible');
+        setTimeout(() => {
+            loader.classList.remove('loading');            
+        }, 500);
+    }, 1000);
+    
 });
 
 
