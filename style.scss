@@ -222,6 +222,9 @@ main {
             .box .delete {
                 display: block;
             }
+            .directory .create-child {
+                display: block;
+            }
         }
     }
     .box {
@@ -278,6 +281,18 @@ main {
                 svg {
                     transform: rotateZ(180deg);
                 }
+            }
+            .create-child {
+                display: none;
+                position: absolute;
+                z-index: 3;
+                bottom: 0;
+                right: 0;
+                background-color: transparent;
+                width: auto;
+                height: auto;
+                padding: 0;
+                margin: 0;
             }
         }
 
@@ -413,9 +428,25 @@ aside {
             width: 80px;
         }
     }
+    .mode-dir {
+        width: 280px;
+        label {
+            width: 75px;
+        }
+        input {
+            width: 20px;
+            height: 20px;
+        }
+    }
     .enter {
-        padding: 1.5rem 0 1rem;
+        border-top: solid 1px #fff;
+        width: 90%;
+        padding: 1rem 0 0;
+        margin-top: 2rem;
         $blue: rgb(17, 112, 255);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         button {
             cursor: pointer;
             border: solid 1px $blue;

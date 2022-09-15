@@ -1,3 +1,8 @@
+let json_data = null;
+const id = 0;
+let setting_mode = false;
+let folder_mode = false;
+
 class LinkBox {
     /**
      *
@@ -33,7 +38,7 @@ class LinkBox {
         })
         delete_btn.appendChild(close);
         this.element.appendChild(delete_btn);
-        if (this.childs.length > 0) {
+        if (this.childs.length > 0 || this.link.length === 0) {
             this.element.classList.add("directory");
             const span = document.createElement("span");
             span.innerText = this.name;
@@ -62,8 +67,26 @@ class LinkBox {
             });
 
             this.element.addEventListener("click", () => {
-                this.openToggle();
+                if(!setting_mode){
+                    this.openToggle();
+                }
             });
+
+            const child_create_btn = document.createElement('button');
+            child_create_btn.classList.add('create-child');
+            const plus = document.createElementNS('http://www.w3.org/2000/svg','svg');
+            plus.setAttribute('height','40px');
+            plus.setAttribute('width','40px');
+            const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+            path.setAttribute('d','M18.708 28.333h2.75V21.5h6.875v-2.792h-6.875v-7.041h-2.75v7.041h-7.041V21.5h7.041ZM20 36.667q-3.458 0-6.479-1.313-3.021-1.312-5.292-3.583t-3.583-5.292Q3.333 23.458 3.333 20t1.313-6.5q1.312-3.042 3.583-5.292t5.292-3.562Q16.542 3.333 20 3.333t6.5 1.313q3.042 1.312 5.292 3.562t3.562 5.292q1.313 3.042 1.313 6.5t-1.313 6.479q-1.312 3.021-3.562 5.292T26.5 35.354q-3.042 1.313-6.5 1.313Zm0-2.792q5.792 0 9.833-4.042 4.042-4.041 4.042-9.833t-4.021-9.833Q25.833 6.125 20 6.125q-5.792 0-9.833 4.021Q6.125 14.167 6.125 20q0 5.792 4.042 9.833 4.041 4.042 9.833 4.042ZM20 20Z');
+            path.setAttribute('fill','#0ba3a3');
+            plus.appendChild(path);
+            child_create_btn.addEventListener('click',()=>{
+                // this.deleteBox();
+            })
+            child_create_btn.appendChild(plus);
+            this.element.appendChild(child_create_btn);
+
         } else {
             const l = document.createElement("a");
             l.target = "_blank";
@@ -101,13 +124,15 @@ class LinkBox {
             localStorage.setItem("box-dancer-2022", regist_json);
         }
 
-        location.reload();
+        reload();
+    }
+
+    registChildBox(){
+        
     }
 }
 
-let json_data = null;
 
-const id = 0;
 
 function jsonDataLoad(appendArea) {
     const json = localStorage.getItem("box-dancer-2022");
@@ -133,11 +158,27 @@ function closeRegistDialog() {
     dialog.classList.remove("show");
 }
 
+function folderModeToggle(){
+    const link_input = document.getElementById('link');
+    folder_mode = !folder_mode;
+    link_input.disabled = folder_mode;
+}
+
 function registBox() {
     
     const name = document.getElementById("name");
     const link = document.getElementById("link");
     const key = document.getElementById("key");
+
+    if(name.value.length === 0){
+        alert('名称の入力がありません。\nこのキーは登録できません。');
+        return;
+    }
+
+    if(link.value.length === 0 && !folder_mode){
+        alert('URLの入力がありません。\nこのキーは登録できません。');
+        return;
+    }
 
     if(json_data.some(j => j.key === key.value)){
         alert('キーの重複があります。\nこのキーは登録できません。');
@@ -153,7 +194,7 @@ function registBox() {
     const json = JSON.stringify(json_data);
 
     localStorage.setItem("box-dancer-2022", json);
-    location.reload();
+    reload();
 }
 
 
@@ -369,7 +410,6 @@ function applyWatch(element_minute,element_hour) {
 
 /////////-------------------------------- 設定 --------------------------------///////////
 
-let setting_mode = false;
 
 function settAreaToggle(){
     const sett = document.getElementById('setting-area');
@@ -395,7 +435,8 @@ function jsonImport(){
     const value = textarea.value;
     if(value !== null && value.length > 0){
         localStorage.setItem("box-dancer-2022",value);
-        location.reload();
+    reload();
+
     }else{
         alert('登録がありません');
     }
@@ -420,54 +461,75 @@ function jsonExport(){
 function jsonDelete(){
     if(!confirm('ページ上の全てのデータを削除します。本当によろしいですか？')) return;
     localStorage.removeItem('box-dancer-2022');
-    location.reload();
+    reload();
 }
 
 /////////-------------------------------- 設定 --------------------------------///////////
+
+function reload(){
+    const index_area = document.getElementById('index');
+    const boxs = index_area.getElementsByClassName('box');
+
+    Array.from(boxs)
+    .forEach(b => {
+        if(!b.classList.contains('append-box')){
+            index_area.removeChild(b);
+        }
+    })
+
+    jsonDataLoad(index_area);
+
+    Array.from(document.getElementsByClassName("append-box"))
+    .forEach(a => {
+        a.addEventListener("click",showRegistDialog());
+    });
+
+}
 
 
 window.addEventListener("load", () => {
     const index_area = document.getElementById("index");
     jsonDataLoad(index_area);
 
-    Array.from(document.getElementsByClassName("append-box")).forEach((a) => {
-        a.addEventListener("click", () => {
-            showRegistDialog();
-        });
+    Array.from(document.getElementsByClassName("append-box"))
+    .forEach(a => {
+        a.addEventListener("click",showRegistDialog);
     });
 
     const dialog_close = document.getElementById("close");
-    dialog_close.addEventListener("click", () => {
-        closeRegistDialog();
+    dialog_close.addEventListener("click",e => {
+        closeRegistDialog()
     });
 
     const dialog_regist = document.getElementById("regist");
-    dialog_regist.addEventListener("click", () => {
+    dialog_regist.addEventListener("click",e => {
         registBox();
     });
 
     const sett = document.getElementById('setting');
-    sett.addEventListener('click',() => {
-        console.log('cl');
+    sett.addEventListener('click',e => {
         settAreaToggle();
-    })
+    });
 
     const json_import = document.getElementById('json-import');
-    json_import.addEventListener('click',()=>{
+    json_import.addEventListener('click',e => {
         jsonImport();
-    })
+    });
 
     const json_export = document.getElementById('json-export');
-    json_export.addEventListener('click',()=>{
+    json_export.addEventListener('click',e => {
         jsonExport();
-    })
+    });
 
     const json_delete = document.getElementById('setting-delete');
-    json_delete.addEventListener('click',()=>{
+    json_delete.addEventListener('click',e => {
         jsonDelete();
-    })
+    });
 
-
+    const mode_dir_btn = document.getElementById('mode-dir');
+    mode_dir_btn.addEventListener('change',e => {
+        folderModeToggle();
+    });
 
 
 
