@@ -304,6 +304,11 @@ main {
 
             &.visible {
                 transform: translateY(0);
+                opacity: 1;
+            }
+
+            &.show {
+                display: block;
             }
         }
 
@@ -408,6 +413,9 @@ aside {
         margin-bottom: 2rem;
         color: #fff;
         border-bottom: solid #ccc 1px;
+        &.child-regist-h2 {
+            display: none;
+        }
     }
     #close {
         background-color: transparent;
@@ -453,6 +461,36 @@ aside {
             background-color: transparent;
             color: $blue;
             font-weight: bold;
+        }
+    }
+    .child-regist {
+        display: none;
+        $teal: rgb(23, 146, 99);
+
+        button {
+            border: solid 1px $teal;
+            background-color: transparent;
+            color: $teal;
+            font-weight: bold;
+        }
+        
+    }
+
+    &.child-create-mode {
+        .child-regist-h2 {
+            display: block;
+        }
+        .normal-regist-h2 {
+            display: none;
+        }
+        .mode-dir {
+            display: none;
+        }
+        .enter {
+            display: none;
+        }
+        .child-regist {
+            display: block;
         }
     }
 }

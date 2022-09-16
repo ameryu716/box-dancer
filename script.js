@@ -2,6 +2,9 @@ let json_data = null;
 const id = 0;
 let setting_mode = false;
 let folder_mode = false;
+let child_create_mode = false;
+
+let parent_key =null;
 
 class LinkBox {
     /**
@@ -61,6 +64,7 @@ class LinkBox {
             this.appendArea.appendChild(this.element);
 
             this.childs.forEach((c) => {
+                console.log(c);
                 const c_element = document.createElement("div");
                 c_element.classList.add("child");
                 new LinkBox(this.appendArea, c_element, c);
@@ -82,7 +86,7 @@ class LinkBox {
             path.setAttribute('fill','#0ba3a3');
             plus.appendChild(path);
             child_create_btn.addEventListener('click',()=>{
-                // this.deleteBox();
+                this.showRegistChildDialog();
             })
             child_create_btn.appendChild(plus);
             this.element.appendChild(child_create_btn);
@@ -127,9 +131,14 @@ class LinkBox {
         reload();
     }
 
-    registChildBox(){
-        
+    showRegistChildDialog(){
+        child_create_mode = true;
+        const dialog = document.getElementById("regist-dialog");
+        dialog.classList.add("show");
+        dialog.classList.add("child-create-mode");
+        parent_key = this.boxKey;
     }
+
 }
 
 
@@ -149,8 +158,10 @@ function jsonDataLoad(appendArea) {
 }
 
 function showRegistDialog() {
+    child_create_mode = false;
     const dialog = document.getElementById("regist-dialog");
     dialog.classList.add("show");
+    dialog.classList.remove("child-create-mode");
 }
 
 function closeRegistDialog() {
@@ -165,7 +176,6 @@ function folderModeToggle(){
 }
 
 function registBox() {
-    
     const name = document.getElementById("name");
     const link = document.getElementById("link");
     const key = document.getElementById("key");
@@ -197,6 +207,40 @@ function registBox() {
     reload();
 }
 
+function registChildBox(){
+    const name = document.getElementById("name");
+    const link = document.getElementById("link");
+    const key = document.getElementById("key");
+
+    if(name.value.length === 0){
+        alert('名称の入力がありません。\nこのキーは登録できません。');
+        return;
+    }
+
+    if(link.value.length === 0 && !folder_mode){
+        alert('URLの入力がありません。\nこのキーは登録できません。');
+        return;
+    }
+
+    if(json_data.some(j => j.key === key.value)){
+        alert('キーの重複があります。\nこのキーは登録できません。');
+        return;
+    }
+
+    const find = json_data.find(j => j.key === parent_key);
+
+    find.childs.push({
+        name: name.value,
+        link: link.value,
+        key: key.value,
+        childs: [],
+    });
+
+    const json = JSON.stringify(json_data);
+
+    localStorage.setItem("box-dancer-2022", json);
+    reload();
+}
 
 /////////-------------------------------- 時計 --------------------------------///////////
 
@@ -505,6 +549,11 @@ window.addEventListener("load", () => {
     dialog_regist.addEventListener("click",e => {
         registBox();
     });
+
+    const child_regist_btn = document.getElementById('child-regist');
+    child_regist_btn.addEventListener('click',()=>{
+        registChildBox();
+    })
 
     const sett = document.getElementById('setting');
     sett.addEventListener('click',e => {
