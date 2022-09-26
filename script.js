@@ -33,8 +33,8 @@ class LinkBox {
         close.setAttribute('height','48px');
         close.setAttribute('width','48px');
         const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-        path.setAttribute('d','m16.5 33.6 7.5-7.5 7.5 7.5 2.1-2.1-7.5-7.5 7.5-7.5-2.1-2.1-7.5 7.5-7.5-7.5-2.1 2.1 7.5 7.5-7.5 7.5ZM24 44q-4.1 0-7.75-1.575-3.65-1.575-6.375-4.3-2.725-2.725-4.3-6.375Q4 28.1 4 24q0-4.15 1.575-7.8 1.575-3.65 4.3-6.35 2.725-2.7 6.375-4.275Q19.9 4 24 4q4.15 0 7.8 1.575 3.65 1.575 6.35 4.275 2.7 2.7 4.275 6.35Q44 19.85 44 24q0 4.1-1.575 7.75-1.575 3.65-4.275 6.375t-6.35 4.3Q28.15 44 24 44Zm0-3q7.1 0 12.05-4.975Q41 31.05 41 24q0-7.1-4.95-12.05Q31.1 7 24 7q-7.05 0-12.025 4.95Q7 16.9 7 24q0 7.05 4.975 12.025Q16.95 41 24 41Zm0-17Z');
-        path.setAttribute('fill','#fff');
+        path.setAttribute('d','M14.8 39.95q-1.1 0-1.925-.825T12.05 37.2V11.3h-2V9.85h7.65V8.5h12.6v1.3h7.65v1.5h-2v25.9q0 1.1-.8 1.925t-1.95.825ZM34.45 11.3h-20.9v25.9q0 .55.375.9t.875.35h18.4q.45 0 .85-.4.4-.4.4-.85ZM19.8 34.25h1.5V15.4h-1.5Zm6.9 0h1.5V15.4h-1.5ZM13.55 11.3v27.15-1.25Z');
+        path.setAttribute('fill','#d22');
         close.appendChild(path);
         delete_btn.addEventListener('click',()=>{
             this.deleteBox();
@@ -46,20 +46,6 @@ class LinkBox {
             const span = document.createElement("span");
             span.innerText = this.name;
             this.element.appendChild(span);
-
-            const svg = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "svg"
-            );
-            svg.setAttribute("width", 20);
-            svg.setAttribute("height", 10);
-            const svg_path = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "path"
-            );
-            svg_path.setAttribute("d", "m10 10-10-9.95h20Z");
-            svg.appendChild(svg_path);
-            this.element.appendChild(svg);
 
             this.appendArea.appendChild(this.element);
 
@@ -595,8 +581,8 @@ window.addEventListener("load", () => {
         loader.classList.remove('visible');
         setTimeout(() => {
             loader.classList.remove('loading');            
-        }, 500);
-    }, 1000);
+        }, 300);
+    }, 500);
     
 });
 
